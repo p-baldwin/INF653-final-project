@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "INF 653 Final Project",
   "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
