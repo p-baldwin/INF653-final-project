@@ -4,7 +4,7 @@
   "description": "INF 653 Final Project",
   "main": "index.js",
   "engines": {
-    "node": "16.x"
+    "node": "14.x"
   },
   "scripts": {
     "start": "node server",
