@@ -1,7 +1,7 @@
 // Third-party middleware.
 const whitelist = [
     'https://spring-changeable-quiet.glitch.me',
-    'https://dazzling-snickerdoodle-777101.netlify.app/'
+    'https://dazzling-snickerdoodle-777101.netlify.app'
 ];
 
 const corsOptions = {
