@@ -1,6 +1,6 @@
 // Third-party middleware.
 const whitelist = [
-    'https://spring-changeable-quiet.glitch.me'
+    'https://spring-changeable-quiet.glitch.me:3000'
 ];
 
 const corsOptions = {
