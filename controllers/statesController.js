@@ -22,6 +22,10 @@ const createNewFunfact = async (req, res) => {
         const stateCode = req.params.stateCode;
         const funFacts = req.body.funfacts;
 
+        if(!funFacts.isArray()) {
+            return res.status(400).json({ 'message': 'State fun facts value must be an array' });
+        }
+        
         let state = await States.findOne({ stateCode: stateCode }).exec();
         if(!state) {
             state = await States.create({ stateCode: stateCode });
@@ -105,10 +109,11 @@ const getState = async (req, res) => {
     }
 
     if(req.params.stateCode) {
-        if(!isValidStateCode(req.params.stateCode)) {
+        const stateCode = req.params.stateCode.toUpperCase();
+        if(!isValidStateCode(stateCode)) {
             return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
         }
-        return res.json(allStatesData.find(state => state.code === req.params.stateCode));
+        return res.json(allStatesData.find(state => state.code === stateCode));
     }
 
     res.json(allStatesData);
@@ -128,8 +133,6 @@ const getStateFunfact = async (req, res) => {
 
     const idx = Math.floor(Math.random() * state.funfacts.length);
     const funFact = await state.funfacts[idx];
-    console.log(state);
-    console.log(idx);
     res.json({ "funfact": funFact });
 
 }
