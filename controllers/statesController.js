@@ -52,11 +52,20 @@ const updateFunfact = async (req, res) => {
     }
 
     try {
-        const stateCode = req.params.stateCode;
+        const stateCode = req.params.stateCode.toUpperCase();
         const idx = req.body.index - 1;
         const funFact = req.body.funfact;
-        
+        const stateName = statesData.states.find(state => state.code === stateCode);
         const state = await States.findOne({ stateCode: stateCode }).exec();
+
+        if(!state.funfacts) {
+            return res.status(400).json({ 'message': `No Fun Facts found for ${stateName.stateName}` });
+        }
+
+        if(!state.funfacts.at(idx)) {
+            return res.status(400).json({ 'message': `No Fun Fact found at that index for ${stateName.stateName}` });
+        }
+
         state.funfacts.set(idx, funFact);
         const result = await state.save();
 
