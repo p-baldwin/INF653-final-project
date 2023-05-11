@@ -97,7 +97,7 @@ const getState = async (req, res) => {
     const stateFunfacts = await States.find({}).exec();
 
     allStatesData.forEach(stateData => {
-        // stateData.funfacts = [];
+        stateData.funfacts = [];
         stateFunfacts.forEach(stateFunfact => {
             if(stateData.code === stateFunfact.stateCode) {
                 stateData.funfacts = stateFunfact.funfacts;
