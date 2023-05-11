@@ -90,7 +90,7 @@ const deleteFunfact = async (req, res) => {
 }
 
 const getState = async (req, res) => {
-    if(!isValidStateCode(req.params.stateCode)) {
+    if(!isValidStateCode(req?.params?.stateCode)) {
         return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
     }
 
