@@ -105,7 +105,7 @@ const getState = async (req, res) => {
     }
 
     if(req.params.stateCode) {
-        if(!isValidStateCode(req.params.stateCode, stateMap)) {
+        if(!isValidStateCode(req.params.stateCode)) {
             return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
         }
         return res.json(allStatesData.find(state => state.code === req.params.stateCode));
