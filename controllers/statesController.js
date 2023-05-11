@@ -22,10 +22,6 @@ const createNewFunfact = async (req, res) => {
         const stateCode = req.params.stateCode;
         const funFacts = req.body.funfacts;
 
-        if(!funFacts.isArray()) {
-            return res.status(400).json({ 'message': 'State fun facts value must be an array' });
-        }
-
         let state = await States.findOne({ stateCode: stateCode }).exec();
         if(!state) {
             state = await States.create({ stateCode: stateCode });
@@ -35,8 +31,8 @@ const createNewFunfact = async (req, res) => {
             state.funfacts.push(funfact);
         });
 
-        await state.save();
-        res.status(201).json(await States.findOne({ stateCode: stateCode }).exec());
+        result = await state.save();
+        res.status(201).json(result);
     } catch(err) {
         console.error(err);
     }
