@@ -97,7 +97,6 @@ const getState = async (req, res) => {
     const stateFunfacts = await States.find({}).exec();
 
     allStatesData.forEach(stateData => {
-        stateData.funfacts = [];
         stateFunfacts.forEach(stateFunfact => {
             if(stateData.code === stateFunfact.stateCode) {
                 stateData.funfacts = stateFunfact.funfacts;
@@ -181,7 +180,6 @@ const getStateAdmission = async (req, res) => {
     res.json( { 'state': stateData.state, 'admitted': stateData.admission_date })
 }
 module.exports = {
-    // getAllStates,
     createNewFunfact,
     updateFunfact,
     deleteFunfact,
