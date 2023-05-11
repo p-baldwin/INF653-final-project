@@ -9,7 +9,7 @@ const statesData = {
 const States = require('../model/States');
 const { options, all } = require('../routes/root');
 
-const stateMap = statesData.map(state => state.code);
+const stateMap = statesData.states.map(state => state.code);
 
 // const getAllStates = async (req, res) => {
 //     const states = await States.find();
@@ -181,7 +181,7 @@ const getStateAdmission = async (req, res) => {
     res.json( { 'state': stateData.state, 'admitted': stateData.admission_date })
 }
 module.exports = {
-    getAllStates,
+    // getAllStates,
     createNewFunfact,
     updateFunfact,
     deleteFunfact,
