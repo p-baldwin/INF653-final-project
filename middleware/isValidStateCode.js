@@ -1,5 +1,9 @@
-const isValidStateCode = (stateCode) => {
-    return stateCode.length === 2;
+const isValidStateCode = (stateCode, states) => {
+
+    const abbreviations = states.find(stateCode);
+
+    if(!abbreviations) return false;
+    return true;
 }
 
 module.exports = isValidStateCode;

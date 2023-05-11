@@ -9,11 +9,11 @@ const statesData = {
 const States = require('../model/States');
 const { options, all } = require('../routes/root');
 
-const getAllStates = async (req, res) => {
-    const states = await States.find();
-    if(!states) return res.status(204).json({ 'message': 'No states found.' });
-    res.json(states);
-}
+// const getAllStates = async (req, res) => {
+//     const states = await States.find();
+//     if(!states) return res.status(204).json({ 'message': 'No states found.' });
+//     res.json(states);
+// }
 
 const createNewFunfact = async (req, res) => {
     if(!isValidStateCode(req.params.stateCode)) {
@@ -89,14 +89,16 @@ const deleteFunfact = async (req, res) => {
     res.json(result);
 }
 
-//NOT YET WORKING
 const getState = async (req, res) => {
+    if(!isValidStateCode(req.params.stateCode)) {
+        return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
+    }
 
     const allStatesData = statesData.states;
     const stateFunfacts = await States.find({}).exec();
 
     allStatesData.forEach(stateData => {
-        stateData.funfacts = [];
+        // stateData.funfacts = [];
         stateFunfacts.forEach(stateFunfact => {
             if(stateData.code === stateFunfact.stateCode) {
                 stateData.funfacts = stateFunfact.funfacts;
