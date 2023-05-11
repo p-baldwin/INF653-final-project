@@ -9,6 +9,8 @@ const statesData = {
 const States = require('../model/States');
 const { options, all } = require('../routes/root');
 
+const stateMap = statesData.map(state => state.code);
+
 // const getAllStates = async (req, res) => {
 //     const states = await States.find();
 //     if(!states) return res.status(204).json({ 'message': 'No states found.' });
@@ -16,7 +18,7 @@ const { options, all } = require('../routes/root');
 // }
 
 const createNewFunfact = async (req, res) => {
-    if(!isValidStateCode(req.params.stateCode)) {
+    if(!isValidStateCode(req.params.stateCode, stateMap)) {
         return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
     }
 
@@ -45,7 +47,7 @@ const createNewFunfact = async (req, res) => {
 }
 
 const updateFunfact = async (req, res) => {
-    if(!isValidStateCode(req.params.stateCode)) {
+    if(!isValidStateCode(req.params.stateCode, stateMap)) {
         return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
     }
 
@@ -73,7 +75,7 @@ const updateFunfact = async (req, res) => {
 }
 
 const deleteFunfact = async (req, res) => {
-    if(!isValidStateCode(req.params.stateCode)) {
+    if(!isValidStateCode(req.params.stateCode, stateMap)) {
         return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
     }
 
@@ -90,10 +92,6 @@ const deleteFunfact = async (req, res) => {
 }
 
 const getState = async (req, res) => {
-    if(!isValidStateCode(req?.params?.stateCode)) {
-        return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
-    }
-
     const allStatesData = statesData.states;
     const stateFunfacts = await States.find({}).exec();
 
@@ -115,7 +113,7 @@ const getState = async (req, res) => {
     }
 
     if(req.params.stateCode) {
-        if(!isValidStateCode(req.params.stateCode)) {
+        if(!isValidStateCode(req.params.stateCode, stateMap)) {
             return res.status(400).json({ "message": "Invalid state abbreviation parameter"});
         }
         return res.json(allStatesData.find(state => state.code === req.params.stateCode));
